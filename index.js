@@ -10,7 +10,7 @@ const express = require("express");
 const app = express();
 
 // declaring the PORT number
-const PORT  = 3000 || process.env;
+const PORT  = process.env.PORT || 3000
 
 
 // server-static - tells us where the files we need are. These files will not change. Telling express our front end is in the public folder
