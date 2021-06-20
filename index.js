@@ -51,6 +51,7 @@ app.get('/api/notes', (req, res) => {
             } catch (error) {
                 parseNotes = [];
             }
+            console.log(parseNotes);
             return parseNotes
         }
     ).then(
