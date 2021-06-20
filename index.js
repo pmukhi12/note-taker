@@ -1,7 +1,8 @@
-// require path
+// require path and fs
 const path = require('path');
-
 const fs = require('fs');
+
+const store = require("./db/STORE")
 
 // express makes it easier to set up the server
 const express = require("express");
@@ -12,8 +13,6 @@ const app = express();
 // declaring the PORT number
 const PORT  = process.env.PORT || 3000
 
-// require notesJSONFile
-const notesJSONFile = require('./db/db.json')
 
 // server-static - tells us where the files we need are. These files will not change. Telling express our front end is in the public folder
 
@@ -32,21 +31,18 @@ app.use(express.urlencoded({
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, 'public/notes.html')));
 
-
-
-
-
 // Get API Notes
 app.get('/api/notes', (req, res) => {
-    res.json(notesJSONFile)
+    res.json(store.read())
 })
 
 // Post API Notes
 app.post('/api/notes', (req, res) => {
-    notesJSONFile.push(req.body);
-    res.json(notesJSONFile.length - 1)
+    const id = store.addNoteToTheStore(req.body);
+    res.json(id);
 })
 
+      
 
 app.get("/*",(req, res) => res.send('404'));
 // Start Listening
