@@ -38,10 +38,11 @@
 
   ## Installation
 
-  To install necessary dependencies, install the following
+  To install necessary dependencies, git clone this repository install the following
   ```
-  git clone this repository
+  npm i
   ```
+
   
 
   
