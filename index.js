@@ -17,9 +17,8 @@ const notesJSONFile = require('./db/db.json')
 
 // server-static - tells us where the files we need are. These files will not change. Telling express our front end is in the public folder
 
-app.use(express.static('public'));
-
 // JSON middleware express. = midddleware
+app.use(express.static('public'));
 app.use(express.json());
 
 
@@ -31,8 +30,10 @@ app.use(express.urlencoded({
 
 // get static html files
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
-
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, 'public/notes.html')));
+
+
+
 
 
 // Get API Notes
@@ -41,6 +42,12 @@ app.get('/api/notes', (req, res) => {
 })
 
 // Post API Notes
+app.post('/api/notes', (req, res) => {
+    notesJSONFile.push(req.body);
+    res.json(notesJSONFile.length - 1)
+})
 
+
+app.get("/*",(req, res) => res.send('404'));
 // Start Listening
 app.listen(PORT, () => console.log("Server running on http://localhost:"+ PORT))
